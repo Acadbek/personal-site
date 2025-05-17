@@ -20,11 +20,13 @@ import { useId, useState } from 'react';
 import { ArrowLeftIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { toast } from "sonner"
-import { publications, contact, name, job } from '@/data';
+import { experiences, publications, contact, name, job } from '@/data';
 
 const Home = () => {
   const [show, setShow] = useState(false);
   const springOptions = { bounce: 0.1 };
+
+  const clonedExperiences = [...experiences]
 
   useEffect(() => {
     const timer = setTimeout(() => setShow(true), 10);
@@ -39,51 +41,6 @@ const Home = () => {
     setNote('');
     setIsOpen(false);
   };
-
-  const experiences = [
-    {
-      id: 1,
-      whoami: 'Frontend developer',
-      company: 'UIC Group',
-      start: '2021',
-      end: '2022',
-    },
-    {
-      id: 2,
-      whoami: 'Frontend engineer',
-      company: 'Codetech.io',
-      start: '2022',
-      end: '2022',
-    },
-    {
-      id: 3,
-      whoami: 'Frontend mentor',
-      company: "Najot Ta'lim",
-      start: '2022',
-      end: '2023',
-    },
-    {
-      id: 4,
-      whoami: 'Frontend engineer',
-      company: 'Blaze Erp',
-      start: '2024',
-      end: '2024',
-    },
-    {
-      id: 5,
-      whoami: 'Frontend engineer',
-      company: 'B2B Market',
-      start: '2025',
-      end: '2025',
-    },
-    {
-      id: 6,
-      whoami: 'Frontend mentor',
-      company: 'Ustudy by Uzinfocom',
-      start: '2024',
-      end: 'Now',
-    },
-  ]
 
   const customVariants = {
     initial: {
@@ -182,12 +139,12 @@ const Home = () => {
                 actionArea='global'
                 range={100}
               >
-                <div className='flex items-center'>
+                <Link to='/Asad-Nosirov.CV.pdf' target='_blank' className='flex items-center'>
                   <span className='font-raleway'>Resume</span>
                   <svg className='rotate-145' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
                     <path fill="currentColor" d="m9.402 12.5l1.636 2.942q.143.293-.075.497t-.49.044l-5.187-3.306q-.378-.242-.378-.677t.378-.677l5.187-3.306q.273-.161.49.044t.076.497L9.402 11.5H21q.214 0 .357.143T21.5 12t-.143.357T21 12.5z" />
                   </svg>
-                </div>
+                </Link>
               </Magnetic>
             </Button>
           </Magnetic>
@@ -223,7 +180,7 @@ const Home = () => {
       <section className={fadeUpStyle}>
         <p className='text-primary text-[18px]'>Experiences</p>
         <div className='flex flex-col gap-2 mt-6'>
-          {experiences.reverse().map((experience) => (
+          {clonedExperiences.reverse().map((experience) => (
             <div key={experience.id} className='px-3'>
               <div className='flex items-center justify-between border px-3 py-4 rounded-2xl'>
                 <div>

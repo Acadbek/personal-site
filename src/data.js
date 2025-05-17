@@ -1,6 +1,7 @@
 export const name = 'Asad Nosirov'
 export const job = 'Web pentester & Frontend engineer'
 
+
 export const experiences = [
   {
     id: 1,
@@ -44,6 +45,13 @@ export const experiences = [
     start: '2024',
     end: 'Now',
   },
+  {
+    id: 7,
+    whoami: 'Web pentester & Frontend engineer',
+    company: 'Own projects and freelancing',
+    start: '2025',
+    end: 'Now',
+  }
 ]
 
 export const publications = [
@@ -77,7 +85,7 @@ export const contact = [
   {
     id: 3,
     name: 'Resume',
-    link: 'https://t.me/acadbek',
+    link: '/Asad-Nosirov.CV.pdf',
   },
 
 ]
