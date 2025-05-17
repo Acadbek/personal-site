@@ -1,7 +1,6 @@
 export const name = 'Asad Nosirov'
 export const job = 'Web pentester & Frontend engineer'
 
-
 export const experiences = [
   {
     id: 1,
