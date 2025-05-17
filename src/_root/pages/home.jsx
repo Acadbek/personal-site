@@ -20,7 +20,7 @@ import { useId, useState } from 'react';
 import { ArrowLeftIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { toast } from "sonner"
-import { experiences, publications, contact, name, job } from '@/data';
+import { publications, contact, name, job } from '@/data';
 
 const Home = () => {
   const [show, setShow] = useState(false);
@@ -39,6 +39,51 @@ const Home = () => {
     setNote('');
     setIsOpen(false);
   };
+
+  const experiences = [
+    {
+      id: 1,
+      whoami: 'Frontend developer',
+      company: 'UIC Group',
+      start: '2021',
+      end: '2022',
+    },
+    {
+      id: 2,
+      whoami: 'Frontend engineer',
+      company: 'Codetech.io',
+      start: '2022',
+      end: '2022',
+    },
+    {
+      id: 3,
+      whoami: 'Frontend mentor',
+      company: "Najot Ta'lim",
+      start: '2022',
+      end: '2023',
+    },
+    {
+      id: 4,
+      whoami: 'Frontend engineer',
+      company: 'Blaze Erp',
+      start: '2024',
+      end: '2024',
+    },
+    {
+      id: 5,
+      whoami: 'Frontend engineer',
+      company: 'B2B Market',
+      start: '2025',
+      end: '2025',
+    },
+    {
+      id: 6,
+      whoami: 'Frontend mentor',
+      company: 'Ustudy by Uzinfocom',
+      start: '2024',
+      end: 'Now',
+    },
+  ]
 
   const customVariants = {
     initial: {
