@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/sonner"
 function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="port-theme">
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <AppRoutes />
       </BrowserRouter>
       <Toaster />

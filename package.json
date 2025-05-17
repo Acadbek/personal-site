@@ -3,6 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://nosirjonov.uz",
+  "author": "Asad Nosirov",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
