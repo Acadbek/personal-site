@@ -316,14 +316,9 @@ const Home = () => {
                                 />
                               </button>
                               <button
-                                className='relative ml-1 flex h-8 w-12 shrink-0 scale-100 appearance-none items-center justify-center rounded-full border border-zinc-950/10 bg-transparent px-2 text-sm text-zinc-500 transition-colors select-none hover:bg-zinc-100 hover:text-zinc-800 focus-visible:ring-2 active:scale-[0.98] dark:border-zinc-50/10 dark:text-zinc-50 dark:hover:bg-zinc-800'
                                 type='submit'
-                                aria-label='Submit note'
-                                onClick={() => {
-                                  closeMenu();
-                                  sendGreeting(note);
-                                }}
-                              >
+                                className='relative ml-1 flex h-8 w-12 shrink-0 scale-100 appearance-none items-center justify-center rounded-full border border-zinc-950/10 bg-transparent px-2 text-sm text-zinc-500 transition-colors select-none hover:bg-zinc-100 hover:text-zinc-800 focus-visible:ring-2 active:scale-[0.98] dark:border-zinc-50/10 dark:text-zinc-50 dark:hover:bg-zinc-800'
+                                aria-label='Submit note'>
                                 👋
                               </button>
                             </div>
@@ -414,7 +409,10 @@ const Home = () => {
           </Link>
           <Link to='https://github.com/acadbek' target='_blank' className='text-muted-foreground text-xs'>Stay</Link>
         </TextLoop>
-        <ModeToggle />
+        <div className="flex items-center gap-6">
+          <Link to='/comments' className='text-muted-foreground font-raleway text-xs'>Comments</Link>
+          <ModeToggle />
+        </div>
       </footer>
     </main>
   )
