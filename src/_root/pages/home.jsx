@@ -89,9 +89,9 @@ const Home = () => {
     },
     {
       id: 4,
-      name: 'CodeBattle',
-      description: 'A platform for competitive programming and coding challenges.',
-      link: 'https://leetcode-clone-vert.vercel.app/',
+      name: 'B2B Market',
+      description: 'Международная B2B платформа для бизнеса Находите клиентов и поставщиков по всему миру с помощью Al.',
+      link: 'https://b2bmarket.uz/home',
     }
   ]
 
