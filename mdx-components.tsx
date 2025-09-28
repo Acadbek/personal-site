@@ -1,4 +1,5 @@
 import type { MDXComponents } from 'mdx/types'
+import Image from 'next/image'
 import { ComponentPropsWithoutRef } from 'react'
 import { highlight } from 'sugar-high'
 
@@ -16,7 +17,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     }) => {
       return (
         <figure>
-          <img src={src} alt={alt} className="rounded-xl" />
+          <Image
+            priority={true}
+            placeholder="blur" src={src} alt={alt} className="rounded-xl" />
           <figcaption className="text-center">{caption}</figcaption>
         </figure>
       )

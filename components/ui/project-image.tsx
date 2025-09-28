@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MorphingDialog, MorphingDialogClose, MorphingDialogContainer, MorphingDialogContent, MorphingDialogTrigger } from "./morphing-dialog";
 import { XIcon } from 'lucide-react'
 
@@ -15,14 +16,22 @@ export function ProjectImage({ src }: ProjectVideoProps) {
       }}
     >
       <MorphingDialogTrigger>
-        <img
+        <Image
+          priority={true}
+          alt="Project preview image"
+          width={284}
+          height={162}
           src={src}
           className="w-full h-max object-cover cursor-zoom-in rounded-xl"
         />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
         <MorphingDialogContent className="relative rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-          <img
+          <Image
+            width={871}
+            height={502}
+            priority={true}
+            alt="Project preview image"
             src={src}
             className="object-cover h-[50vh] w-full rounded-xl md:h-[70vh]"
           />
