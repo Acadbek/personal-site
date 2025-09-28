@@ -60,7 +60,7 @@
       ]
     },
     {
-      "source": "/_next/static/(.*)",
+      "source": "/_next/static/:path*",
       "headers": [
         {
           "key": "Cache-Control",
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "source": "/api/(.*)",
+      "source": "/api/:path*",
       "headers": [
         {
           "key": "Cache-Control",
@@ -87,7 +87,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(ico|png|jpg|jpeg|webp|avif|svg|gif))",
+      "source": "/:path*\\.(ico|png|jpg|jpeg|webp|avif|svg|gif)",
       "headers": [
         {
           "key": "Cache-Control",
