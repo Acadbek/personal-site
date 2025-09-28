@@ -31,7 +31,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Salom UI ~ (WIP)',
     description: 'UI library built with shadcn registry.',
-    link: 'https://voidui.vercel.app',
+    link: '#',
     video: '/void.webp',
     id: 'project3',
   },
