@@ -46,7 +46,7 @@ export const PROJECTS: Project[] = [
     name: 'Pentesting Notes',
     description:
       'Web vulnerabilities, exploitation and defense guide.',
-    link: 'https://pentesting-notes.vercel.app/docs/category/http-asoslari-va-parametrlarni-boshqarish/',
+    link: 'https://pentest.nosirjonov.uz/docs/category/http-asoslari-va-parametrlarni-boshqarish/',
     video: '/pennotes.webp',
     id: 'project1',
   },
@@ -63,7 +63,7 @@ export const ALLPROJECTS: Project[] = [
   {
     name: 'Salom UI ~ (WIP)',
     description: 'UI library built with shadcn registry.',
-    link: 'https://voidui.vercel.app',
+    link: 'https://salom.nosirjonov.uz',
     video: '/void.webp',
     id: 'project3',
   },
