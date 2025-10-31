@@ -31,7 +31,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Salom UI ~ (WIP)',
     description: 'UI library built with shadcn registry.',
-    link: 'https://voidui.vercel.app',
+    link: 'https://salom.nosirjonov.uz',
     video: '/void.webp',
     id: 'project3',
   },
@@ -46,7 +46,7 @@ export const PROJECTS: Project[] = [
     name: 'Pentesting Notes',
     description:
       'Web vulnerabilities, exploitation and defense guide.',
-    link: 'https://pentesting-notes.vercel.app/docs/category/http-asoslari-va-parametrlarni-boshqarish/',
+    link: 'https://pentest.nosirjonov.uz/docs/category/http-asoslari-va-parametrlarni-boshqarish/',
     video: '/pennotes.webp',
     id: 'project1',
   },
@@ -63,7 +63,7 @@ export const ALLPROJECTS: Project[] = [
   {
     name: 'Salom UI ~ (WIP)',
     description: 'UI library built with shadcn registry.',
-    link: 'https://voidui.vercel.app',
+    link: 'https://salom.nosirjonov.uz',
     video: '/void.webp',
     id: 'project3',
   },
@@ -134,7 +134,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
   },
   {
     company: 'Codetech.io',
-    title: 'Front-end Developer',
+    title: 'Frontend Developer',
     start: '2022',
     end: '2022',
     link: 'https://google.com',
@@ -142,7 +142,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
   },
   {
     company: 'UIC Group',
-    title: 'Front-end Developer',
+    title: 'Frontend Developer',
     start: '2021',
     end: '2022',
     link: 'https://uic.group',
