@@ -44,8 +44,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: 'Pentesting Notes',
-    description:
-      'Web vulnerabilities, exploitation and defense guide.',
+    description: 'Web vulnerabilities, exploitation and defense guide.',
     link: 'https://pentest.nosirjonov.uz/docs/category/http-asoslari-va-parametrlarni-boshqarish/',
     video: '/pennotes.webp',
     id: 'project1',
@@ -76,8 +75,7 @@ export const ALLPROJECTS: Project[] = [
   },
   {
     name: 'Pentesting Notes',
-    description:
-      'Web vulnerabilities, exploitation and defense guide.',
+    description: 'Web vulnerabilities, exploitation and defense guide.',
     link: 'https://pentesting-notes.vercel.app/docs/category/http-asoslari-va-parametrlarni-boshqarish/',
     video: '/pennotes.webp',
     id: 'project1',
@@ -161,20 +159,22 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     uid: 'blog-1',
     title: "SQL Injection vulnerabilities [O'zbek tilida]",
-    description: 'Identify and test SQL Injection vulnerabilities in Node.js websites.',
+    description:
+      'Identify and test SQL Injection vulnerabilities in Node.js websites.',
     link: '/blog/sql-injection-vulnerabilities',
   },
   {
     title: "SSRF [O'zbek tilida]",
-    description: "Understand SSRF, exploitation techniques, detection methods, and practical mitigation strategies.",
-    link: "/blog/ssrf",
-    uid: "blog-0"
+    description:
+      'Understand SSRF, exploitation techniques, detection methods, and practical mitigation strategies.',
+    link: '/blog/ssrf',
+    uid: 'blog-0',
   },
   {
     title: "All posts [O'zbek tilida]",
-    description: "Hands-on pentesting tutorials, tools and tips",
-    link: "https://pentesting-notes.vercel.app/docs/category/http-asoslari-va-parametrlarni-boshqarish",
-    uid: "blog--0"
+    description: 'Hands-on pentesting tutorials, tools and tips',
+    link: 'https://pentesting-notes.vercel.app/docs/category/http-asoslari-va-parametrlarni-boshqarish',
+    uid: 'blog--0',
   },
 ]
 

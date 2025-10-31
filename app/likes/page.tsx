@@ -4,7 +4,7 @@ import LikesClient from './likes-client'
 
 export const metadata = {
   title: 'My Likes',
-  description: 'Collection of things I love'
+  description: 'Collection of things I love',
 }
 
 export default async function LikesPage() {

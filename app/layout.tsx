@@ -19,8 +19,30 @@ export const metadata: Metadata = {
   icons: {
     icon: '/logo.ico',
   },
-  description: "Asadbek Nosirjonov - Web pentester & Frontend Developer specializing in modern, responsive websites with React, Vue, and more.",
-  keywords: ['Asadbek Nosirjonov', 'void ui', 'voidui', 'design engineer', 'Frotend', 'Uzbekistan developer', 'void', 'shadcn registry', 'Asadbek Nosirjonov', 'asadbek', 'asad', 'Frontend Developer', 'Web Developer', 'React Developer', 'Uzbekistan Developer', 'JavaScript', 'Portfolio', 'Penetration Testing', 'Web Pentester', 'Web Security'],
+  description:
+    'Asadbek Nosirjonov - Web pentester & Frontend Developer specializing in modern, responsive websites with React, Vue, and more.',
+  keywords: [
+    'Asadbek Nosirjonov',
+    'void ui',
+    'voidui',
+    'design engineer',
+    'Frotend',
+    'Uzbekistan developer',
+    'void',
+    'shadcn registry',
+    'Asadbek Nosirjonov',
+    'asadbek',
+    'asad',
+    'Frontend Developer',
+    'Web Developer',
+    'React Developer',
+    'Uzbekistan Developer',
+    'JavaScript',
+    'Portfolio',
+    'Penetration Testing',
+    'Web Pentester',
+    'Web Security',
+  ],
   authors: [{ name: 'Asadbek Nosirjonov', url: 'https://nosirjonov.uz' }],
   robots: {
     index: true,
@@ -33,7 +55,8 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://nosirjonov.uz',
     title: 'Asadbek Nosirjonov | Web Pentester & Frontend Developer',
-    description: 'Explore the works of Asadbek Nosirjonov, a passionate frontend developer creating responsive, modern, and fast web applications.',
+    description:
+      'Explore the works of Asadbek Nosirjonov, a passionate frontend developer creating responsive, modern, and fast web applications.',
     images: [
       {
         url: 'https://nosirjonov.uz/preview.png',
@@ -49,10 +72,11 @@ export const metadata: Metadata = {
     site: '@malfoyintech',
     creator: '@malfoyintech',
     title: 'Asadbek Nosirjonov | Web Pentester & Frontend Developer',
-    description: 'Check out the work of Asadbek Nosirjonov, a frontend developer from Uzbekistan focused on great web experiences.',
+    description:
+      'Check out the work of Asadbek Nosirjonov, a frontend developer from Uzbekistan focused on great web experiences.',
     images: ['https://nosirjonov.uz/preview.png'],
-  }
-};
+  },
+}
 
 const geist = Geist({
   variable: '--font-geist',
@@ -72,7 +96,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950 !lowercase`}
+        className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight !lowercase antialiased dark:bg-zinc-950`}
       >
         <ThemeProvider
           enableSystem={true}

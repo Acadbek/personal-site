@@ -13,7 +13,7 @@ import {
 } from './data'
 import { ProjectImage } from '@/components/ui/project-image'
 
-const springOptions = { bounce: 0.1 };
+const springOptions = { bounce: 0.1 }
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -33,7 +33,6 @@ const VARIANTS_SECTION = {
 const TRANSITION_SECTION = {
   duration: 0.3,
 }
-
 
 function MagneticSocialLink({
   children,
@@ -83,22 +82,33 @@ export default function Personal() {
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            I believe less is powerful. I don't just write code — I design experiences. No unnecessary gradients, no chaos. Just clean layouts, sharp components, and strong hierarchy. Give me a rough wireframe or just a crazy idea — I’ll turn it into something modern, lightweight, and beautiful.
+            I believe less is powerful. I don't just write code — I design
+            experiences. No unnecessary gradients, no chaos. Just clean layouts,
+            sharp components, and strong hierarchy. Give me a rough wireframe or
+            just a crazy idea — I’ll turn it into something modern, lightweight,
+            and beautiful.
             <br />
             <br />
-            I’m not just a developer. I think like an attacker too. While others stop at pretty pixels, I go deeper: testing inputs, breaking flows, and poking around places users were never meant to go. CSS to XSS.
+            I’m not just a developer. I think like an attacker too. While others
+            stop at pretty pixels, I go deeper: testing inputs, breaking flows,
+            and poking around places users were never meant to go. CSS to XSS.
           </p>
         </div>
 
-        <div className='flex items-center gap-3 mt-10'>
+        <div className="mt-10 flex items-center gap-3">
           <div className="flex items-center justify-start space-x-3">
-            <MagneticSocialLink key='Resume' link={'/Asadbek-Nosirjonov.CV.pdf'}>
+            <MagneticSocialLink
+              key="Resume"
+              link={'/Asadbek-Nosirjonov.CV.pdf'}
+            >
               Resume
             </MagneticSocialLink>
           </div>
-          <p className='text-gray-500 text-sm flex items-center gap-1'>
-            <span className='animate-pulse inline-block w-[7px] h-[7px] rounded-full bg-green-500 mr-1'> </span>
-            <span className='font-raleway'>Currently on the job market</span>
+          <p className="flex items-center gap-1 text-sm text-gray-500">
+            <span className="mr-1 inline-block h-[7px] w-[7px] animate-pulse rounded-full bg-green-500">
+              {' '}
+            </span>
+            <span className="font-raleway">Currently on the job market</span>
           </p>
         </div>
       </motion.section>
@@ -107,7 +117,7 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <div className='flex justify-between'>
+        <div className="flex justify-between">
           <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -123,7 +133,7 @@ export default function Personal() {
                   target="_blank"
                 >
                   {project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
                 </a>
                 <p className="text-base text-zinc-600 dark:text-zinc-400">
                   {project.description}
@@ -142,7 +152,6 @@ export default function Personal() {
           </motion.section> */}
         </div>
       </motion.section>
-
 
       <motion.section
         variants={VARIANTS_SECTION}

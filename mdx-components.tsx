@@ -19,7 +19,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <figure>
           <Image
             priority={true}
-            placeholder="blur" src={src} alt={alt} className="rounded-xl" />
+            placeholder="blur"
+            src={src}
+            alt={alt}
+            className="rounded-xl"
+          />
           <figcaption className="text-center">{caption}</figcaption>
         </figure>
       )

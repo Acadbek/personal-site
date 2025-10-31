@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import { motion } from 'motion/react'
 import React from 'react'
 import { ALLPROJECTS } from '../data'
@@ -20,7 +20,7 @@ export default function Projects() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <div className='flex justify-between'>
+        <div className="flex justify-between">
           <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -36,7 +36,7 @@ export default function Projects() {
                   target="_blank"
                 >
                   {project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
                 </a>
                 <p className="text-base text-zinc-600 dark:text-zinc-400">
                   {project.description}

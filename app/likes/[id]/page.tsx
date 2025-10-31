@@ -6,26 +6,28 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
 type Props = {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const like = await getLikeById(params.id)
+  const { id } = await params
+  const like = await getLikeById(id)
 
   if (!like) {
     return {
-      title: 'Not Found'
+      title: 'Not Found',
     }
   }
 
   return {
     title: like.title,
-    description: like.description !== 'N/A' ? like.description : 'View this like',
+    description:
+      like.description !== 'N/A' ? like.description : 'View this like',
     openGraph: {
       title: like.title,
       description: like.description !== 'N/A' ? like.description : undefined,
       images: like.imageUrl ? [like.imageUrl] : undefined,
-    }
+    },
   }
 }
 
@@ -37,7 +39,8 @@ export async function generateStaticParams() {
 }
 
 export default async function LikeDetailPage({ params }: Props) {
-  const like = await getLikeById(params.id)
+  const { id } = await params
+  const like = await getLikeById(id)
 
   if (!like) {
     notFound()
@@ -49,7 +52,7 @@ export default async function LikeDetailPage({ params }: Props) {
         {/* Back button */}
         <Link
           href="/likes"
-          className="inline-flex items-center gap-2 mb-6 text-xs hover:text-zinc-400 transition"
+          className="mb-6 inline-flex items-center gap-2 text-xs transition hover:text-zinc-400"
         >
           <span>←</span> Back
         </Link>
@@ -58,7 +61,7 @@ export default async function LikeDetailPage({ params }: Props) {
         <article>
           {/* Image */}
           {like.imageUrl && (
-            <div className="aspect-[16/9] relative h-96 w-full">
+            <div className="relative aspect-[16/9] h-96 w-full">
               <Image
                 src={like.imageUrl}
                 alt={like.title}
@@ -72,67 +75,69 @@ export default async function LikeDetailPage({ params }: Props) {
           {/* Content */}
           <div>
             {/* Category badge */}
-            <div className="flex items-center gap-2 mb-4">
-              <span className=" text-blue-700 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
+            <div className="mb-4 flex items-center gap-2">
+              <span className="flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium text-blue-700">
                 {getCategoryEmoji(like.category)} {like.category}
               </span>
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl font-bold mb-4">
-              {like.title}
-            </h1>
+            <h1 className="mb-4 text-4xl font-bold">{like.title}</h1>
 
             {/* Description */}
             {like.description !== 'N/A' && (
-              <div className="prose prose-lg max-w-none mb-6">
-                <p className="text-gray-700 leading-relaxed">
+              <div className="prose prose-lg mb-6 max-w-none">
+                <p className="leading-relaxed text-gray-700">
                   {like.description}
                 </p>
               </div>
             )}
 
             {/* Divider */}
-            <div className="border-t my-6"></div>
+            <div className="my-6 border-t"></div>
 
             {/* Links Section */}
-            <div className="space-y-4 mb-6">
+            <div className="mb-6 space-y-4">
               <h3 className="text-lg font-semibold text-gray-900">Links</h3>
 
               <div className="space-y-3">
                 <Link
                   href={like.pageUrl}
                   target="_blank"
-                  className="flex items-center gap-3 p-3 border rounded-lg hover:border-blue-300 transition group"
+                  className="group flex items-center gap-3 rounded-lg border p-3 transition hover:border-blue-300"
                 >
                   <span className="text-2xl">🔗</span>
                   <div className="flex-1">
                     <div className="font-medium text-gray-900 group-hover:text-blue-600">
                       Visit Page
                     </div>
-                    <div className="text-sm text-gray-500 truncate">
+                    <div className="truncate text-sm text-gray-500">
                       {like.pageUrl}
                     </div>
                   </div>
-                  <span className="text-gray-400 group-hover:text-blue-600">→</span>
+                  <span className="text-gray-400 group-hover:text-blue-600">
+                    →
+                  </span>
                 </Link>
 
                 {like.src !== 'N/A' && (
                   <Link
                     href={like.src}
                     target="_blank"
-                    className="flex items-center gap-3 p-3 border rounded-lg hover:bg-purple-50 hover:border-purple-300 transition group"
+                    className="group flex items-center gap-3 rounded-lg border p-3 transition hover:border-purple-300 hover:bg-purple-50"
                   >
                     <span className="text-2xl">📖</span>
                     <div className="flex-1">
                       <div className="font-medium text-gray-900 group-hover:text-purple-600">
                         Original Source
                       </div>
-                      <div className="text-sm text-gray-500 truncate">
+                      <div className="truncate text-sm text-gray-500">
                         {like.src}
                       </div>
                     </div>
-                    <span className="text-gray-400 group-hover:text-purple-600">→</span>
+                    <span className="text-gray-400 group-hover:text-purple-600">
+                      →
+                    </span>
                   </Link>
                 )}
               </div>
@@ -141,12 +146,14 @@ export default async function LikeDetailPage({ params }: Props) {
             {/* Tags */}
             {like.tags.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Tags</h3>
-                <div className="flex gap-2 flex-wrap">
-                  {like.tags.map(tag => (
+                <h3 className="mb-3 text-lg font-semibold text-gray-900">
+                  Tags
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {like.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-gray-700 px-3 py-1.5 rounded-full text-sm font-medium"
+                      className="rounded-full px-3 py-1.5 text-sm font-medium text-gray-700"
                     >
                       #{tag}
                     </span>
@@ -156,16 +163,17 @@ export default async function LikeDetailPage({ params }: Props) {
             )}
 
             {/* Divider */}
-            <div className="border-t my-6"></div>
+            <div className="my-6 border-t"></div>
 
             {/* Metadata */}
             <div className="flex items-center justify-between text-sm text-gray-500">
               <div className="flex items-center gap-4">
                 <time>
-                  Added on {new Date(like.createdAt).toLocaleDateString('en-US', {
+                  Added on{' '}
+                  {new Date(like.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
-                    day: 'numeric'
+                    day: 'numeric',
                   })}
                 </time>
               </div>
@@ -173,7 +181,7 @@ export default async function LikeDetailPage({ params }: Props) {
               <Link
                 href={like.githubUrl}
                 target="_blank"
-                className="hover:text-gray-700 transition flex items-center gap-1"
+                className="flex items-center gap-1 transition hover:text-gray-700"
               >
                 <span>View on GitHub</span>
                 <span>↗</span>
@@ -194,7 +202,7 @@ function getCategoryEmoji(category: string): string {
     article: '📰',
     tool: '🛠️',
     design: '🎨',
-    other: '📌'
+    other: '📌',
   }
   return emojis[category] || '📌'
 }

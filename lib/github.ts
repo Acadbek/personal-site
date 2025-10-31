@@ -18,11 +18,11 @@ export async function getLikes(): Promise<Like[]> {
     `https://api.github.com/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/issues?state=open&per_page=100`,
     {
       headers: {
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github.v3+json',
       },
-      next: { revalidate: 30 }
-    }
+      next: { revalidate: 30 },
+    },
   )
 
   if (!response.ok) {
@@ -38,11 +38,11 @@ export async function getLikeById(id: string): Promise<Like | null> {
     `https://api.github.com/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/issues/${id}`,
     {
       headers: {
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github.v3+json',
       },
-      next: { revalidate: 30 }
-    }
+      next: { revalidate: 30 },
+    },
   )
 
   if (!response.ok) {
@@ -56,12 +56,16 @@ export async function getLikeById(id: string): Promise<Like | null> {
 function parseIssue(issue: any): Like {
   const body = issue.body || ''
 
-  const tagsString = extractField(body, 'Tags');
-  const tags = (tagsString === 'N/A' || !tagsString)
-    ? []
-    : tagsString.split(',').map(t => t.trim()).filter(Boolean);
+  const tagsString = extractField(body, 'Tags')
+  const tags =
+    tagsString === 'N/A' || !tagsString
+      ? []
+      : tagsString
+          .split(',')
+          .map((t) => t.trim())
+          .filter(Boolean)
 
-  const categoryFromBody = extractField(body, 'Category');
+  const categoryFromBody = extractField(body, 'Category')
 
   return {
     id: issue.id,
@@ -71,13 +75,16 @@ function parseIssue(issue: any): Like {
     description: extractField(body, 'Description'),
     pageUrl: extractField(body, 'URL'),
     src: extractField(body, 'Source'),
-    imageUrl: extractField(body, 'Image') === 'N/A' ? null : extractField(body, 'Image'),
+    imageUrl:
+      extractField(body, 'Image') === 'N/A'
+        ? null
+        : extractField(body, 'Image'),
 
     category: categoryFromBody !== 'N/A' ? categoryFromBody : 'other',
     tags: tags,
 
     createdAt: issue.created_at,
-    githubUrl: issue.html_url
+    githubUrl: issue.html_url,
   }
 }
 
