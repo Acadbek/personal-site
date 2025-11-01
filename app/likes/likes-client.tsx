@@ -96,7 +96,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
           value={searchQuery}
           onChange={handleSearchChange}
           placeholder="Search by title, description, or tag..."
-          className="h-8 w-full border border-zinc-700 bg-zinc-900 px-3 text-white placeholder-zinc-500 focus:ring-2 focus:ring-white/50 focus:outline-none"
+          className="h-8 w-full border dark:border-zinc-700 dark:bg-zinc-900 px-3 dark:text-white dark:placeholder-zinc-500 focus:ring-2 dark:focus:ring-white/50 focus:outline-none"
         />
       </div>
 
@@ -105,11 +105,10 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
           <button
             key={category}
             onClick={() => handleCategoryClick(category)}
-            className={`flex-shrink-0 px-4 py-1.5 text-sm font-medium capitalize transition-colors ${
-              selectedCategory === category
-                ? 'bg-white text-black'
-                : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'
-            } `}
+            className={`flex-shrink-0 px-4 py-1.5 text-sm font-medium capitalize transition-colors ${selectedCategory === category
+              ? 'dark:bg-white dark:text-black bg-zinc-100 text-black hover:opacity-90'
+              : 'dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700 border dark:border-none'
+              } `}
           >
             {category}
           </button>
@@ -123,7 +122,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
               <h2 className="flex items-center text-xl font-semibold capitalize">
                 {category}
               </h2>
-              <span className="rounded-full bg-zinc-800 px-2 py-0.5 font-mono text-xs text-zinc-400">
+              <span className="rounded-full dark:bg-zinc-800 px-2 py-0.5 font-mono text-xs dark:text-zinc-400 bg-zinc-100">
                 {items.length}
               </span>
             </div>
@@ -178,7 +177,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
 
 function ItemList({ items }: { items: Like[] }) {
   return (
-    <div className="divide-y divide-zinc-800 border-l border-l-zinc-800">
+    <div className="divide-y dark:divide-zinc-800 border-l dark:border-l-zinc-800">
       {items.map((item) => (
         <div key={item.id} className="group block px-4 py-4 transition-all">
           <div className="flex items-start justify-between gap-4">
@@ -206,7 +205,7 @@ function ItemList({ items }: { items: Like[] }) {
                     {item.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded bg-zinc-800 px-2 py-0.5 text-zinc-400"
+                        className="rounded dark:bg-zinc-800 bg-zinc-100 px-2 py-0.5 dark:text-zinc-400 text-zinc-500"
                       >
                         #{tag}
                       </span>
@@ -220,7 +219,7 @@ function ItemList({ items }: { items: Like[] }) {
               target="_blank"
               rel="noopener noreferrer"
               href={item.src != 'N/A' ? item.src : item.pageUrl}
-              className="mt-1 flex-shrink-0 items-center justify-center border border-zinc-700 p-2 hover:bg-zinc-800"
+              className="mt-1 flex-shrink-0 items-center justify-center border dark:border-zinc-700 p-2 dark:hover:bg-zinc-800 hover:bg-zinc-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
