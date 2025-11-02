@@ -213,8 +213,10 @@ function ItemList({ items }: { items: Like[] }) {
         <div key={item.id} className="group block px-4 py-4 transition-all">
           <div className="flex items-start justify-between gap-4">
             <Link href={`/likes/${item.number}`} className="min-w-0 flex-1">
-              <h3 className="mb-1.5 truncate font-medium transition group-hover:text-zinc-400">
+              <h3 className="font-base group relative inline-block text-zinc-900 dark:text-zinc-50 mb-1.5 truncate font-medium transition group-hover:text-zinc-400">
                 {item.title}
+                <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-400 group-hover:max-w-full dark:bg-zinc-50"></span>
+
               </h3>
 
               {item.description !== 'N/A' && (
