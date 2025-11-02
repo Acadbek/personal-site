@@ -202,7 +202,7 @@ function ItemList({ items }: { items: Like[] }) {
                 </time>
                 {item.tags.length > 0 && (
                   <div className="flex gap-2">
-                    {item.tags.slice(0, 3).map((tag) => (
+                    {item.tags.map((tag) => (
                       <span
                         key={tag}
                         className="rounded dark:bg-zinc-800 bg-zinc-100 px-2 py-0.5 dark:text-zinc-400 text-zinc-500"
