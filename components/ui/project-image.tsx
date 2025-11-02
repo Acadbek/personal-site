@@ -7,24 +7,37 @@ import {
   MorphingDialogTrigger,
 } from './morphing-dialog'
 import { XIcon } from 'lucide-react'
+import { s } from 'motion/react-client'
 
 type ProjectVideoProps = {
-  src: string
+  src: string,
+  previewImg: string,
 }
 
-export function ProjectImage({ src }: ProjectVideoProps) {
+export function ProjectImage({ src, previewImg }: ProjectVideoProps) {
   return (
     <>
-      {/* Katta rasmni yashirin holatda preload qilish */}
-      <Image
-        width={871}
-        height={502}
-        priority={true}
-        alt=""
-        src={src}
-        className="pointer-events-none absolute -z-50 opacity-0"
-        sizes="(max-width: 768px) 100vw, 871px"
-      />
+      {
+        src.split('.').pop() === 'webp' ? (
+          <Image
+            width={871}
+            height={502}
+            priority={true}
+            alt=""
+            src={src}
+            className="pointer-events-none absolute -z-50 opacity-0"
+            sizes="(max-width: 768px) 100vw, 871px"
+          />
+        ) : <video
+          width={871}
+          height={502}
+          controls
+          className="pointer-events-none absolute -z-50 opacity-0"
+        >
+          <source src={src} type="video/webp" />
+        </video>
+      }
+
 
       <MorphingDialog
         transition={{
@@ -39,21 +52,36 @@ export function ProjectImage({ src }: ProjectVideoProps) {
             alt="Project preview image"
             width={284}
             height={162}
-            src={src}
-            className="h-max w-full cursor-zoom-in rounded-xl object-cover transition-transform"
-          />
+            src={previewImg}
+            className="h-40 w-full cursor-zoom-in rounded-xl object-cover transition-transform" />
         </MorphingDialogTrigger>
         <MorphingDialogContainer>
           <MorphingDialogContent className="relative rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-            <Image
-              width={871}
-              height={502}
-              priority={true}
-              alt="Project preview image"
-              src={src}
-              className="h-[50vh] w-full rounded-xl object-cover md:h-[70vh]"
-              sizes="(max-width: 768px) 100vw, 871px"
-            />
+            {src.split('.').pop() === 'webp' ? (
+              <Image
+                width={871}
+                height={502}
+                priority={true}
+                alt="Project preview image"
+                src={src}
+                className="h-[50vh] w-full rounded-xl object-cover md:h-[70vh]"
+                sizes="(max-width: 768px) 100vw, 871px"
+              />
+            ) :
+              <>
+                <video
+                  muted
+                  autoPlay
+                  loop
+                  width={871}
+                  height={502}
+                  controls
+                  className="h-[50vh] w-full rounded-xl object-cover md:h-[70vh]"
+                >
+                  <source src='./likes-extention.webm' type="video/webm" />
+                </video>
+              </>
+            }
           </MorphingDialogContent>
           <MorphingDialogClose
             className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1 shadow-lg"
