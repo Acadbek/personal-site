@@ -126,7 +126,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
             value={searchQuery}
             onChange={handleSearchChange}
             placeholder="Search by title, description, or tag..."
-            className="h-8 w-full border dark:border-zinc-700 dark:bg-zinc-900 px-3 dark:text-white dark:placeholder-zinc-500 focus:ring-2 dark:focus:ring-white/50 focus:outline-none"
+            className="h-8 w-full border text-xs sm:text-sm dark:border-zinc-700 dark:bg-zinc-900 px-3 dark:text-white dark:placeholder-zinc-500 focus:ring-2 dark:focus:ring-white/50 focus:outline-none"
           />
         </div>
 
@@ -213,10 +213,9 @@ function ItemList({ items }: { items: Like[] }) {
         <div key={item.id} className="group block px-4 py-4 transition-all">
           <div className="flex items-start justify-between gap-4">
             <Link href={`/likes/${item.number}`} className="min-w-0 flex-1">
-              <h3 className="font-base group relative inline-block text-zinc-900 dark:text-zinc-50 mb-1.5 truncate font-medium transition group-hover:text-zinc-400">
+              <h3 className="font-base group relative truncate text-zinc-900 dark:text-zinc-50 mb-1.5 font-medium transition">
                 {item.title}
                 <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-400 group-hover:max-w-full dark:bg-zinc-50"></span>
-
               </h3>
 
               {item.description !== 'N/A' && (
@@ -226,7 +225,7 @@ function ItemList({ items }: { items: Like[] }) {
               )}
 
               <div className="flex items-center gap-4 text-xs text-gray-500">
-                <time>
+                <time className='text-nowrap flex-shrink-0'>
                   {new Date(item.createdAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'short',
@@ -234,11 +233,11 @@ function ItemList({ items }: { items: Like[] }) {
                   })}
                 </time>
                 {item.tags.length > 0 && (
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 overflow-x-auto scrollbar-hide min-w-0">
                     {item.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded dark:bg-zinc-800 bg-zinc-100 px-2 py-0.5 dark:text-zinc-400 text-zinc-500"
+                        className="flex-shrink-0 rounded text-nowrap dark:bg-zinc-800 bg-zinc-100 px-2 py-0.5 dark:text-zinc-400 text-zinc-500"
                       >
                         #{tag}
                       </span>
