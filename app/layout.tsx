@@ -13,7 +13,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Asadbek Nosirjonov',
+    template: '%s',
     default: 'AN',
   },
   icons: {
