@@ -11,73 +11,6 @@ export const viewport: Viewport = {
   themeColor: '#ffffff',
 }
 
-export const metadata: Metadata = {
-  title: {
-    template: '%s',
-    default: 'AN',
-  },
-  icons: {
-    icon: '/logo.ico',
-  },
-  description:
-    'Asadbek Nosirjonov - Web pentester & Frontend Developer specializing in modern, responsive websites with React, Vue, and more.',
-  keywords: [
-    'Asadbek Nosirjonov',
-    'void ui',
-    'voidui',
-    'design engineer',
-    'Frotend',
-    'Uzbekistan developer',
-    'void',
-    'shadcn registry',
-    'Asadbek Nosirjonov',
-    'asadbek',
-    'asad',
-    'Frontend Developer',
-    'Web Developer',
-    'React Developer',
-    'Uzbekistan Developer',
-    'JavaScript',
-    'Portfolio',
-    'Penetration Testing',
-    'Web Pentester',
-    'Web Security',
-  ],
-  authors: [{ name: 'Asadbek Nosirjonov', url: 'https://nosirjonov.uz' }],
-  robots: {
-    index: true,
-    follow: true,
-  },
-  alternates: {
-    canonical: 'https://nosirjonov.uz',
-  },
-  openGraph: {
-    type: 'website',
-    url: 'https://nosirjonov.uz',
-    title: 'Asadbek Nosirjonov | Web Pentester & Frontend Developer',
-    description:
-      'Explore the works of Asadbek Nosirjonov, a passionate frontend developer creating responsive, modern, and fast web applications.',
-    images: [
-      {
-        url: 'https://nosirjonov.uz/preview.png',
-        width: 1200,
-        height: 630,
-        alt: 'Asadbek Nosirjonov Portfolio Preview',
-      },
-    ],
-    siteName: 'Asadbek Nosirjonov Portfolio',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@malfoyintech',
-    creator: '@malfoyintech',
-    title: 'Asadbek Nosirjonov | Web Pentester & Frontend Developer',
-    description:
-      'Check out the work of Asadbek Nosirjonov, a frontend developer from Uzbekistan focused on great web experiences.',
-    images: ['https://nosirjonov.uz/preview.png'],
-  },
-}
-
 const geist = Geist({
   variable: '--font-geist',
   subsets: ['latin'],
@@ -87,6 +20,19 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 })
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s',
+    default: 'AN',
+  },
+  icons: {
+    icon: '/logo.ico',
+  },
+  openGraph: {
+    locale: 'en_US'
+  }
+}
 
 export default function RootLayout({
   children,
@@ -112,6 +58,43 @@ export default function RootLayout({
             </div>
           </div>
         </ThemeProvider>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Asadbek Nosirjonov',
+              alternateName: 'AN',
+              url: 'https://nosirjonov.uz',
+              image: 'https://nosirjonov.uz/profile.jpg',
+              jobTitle: 'Design Engineer & Web Pentester',
+              worksFor: {
+                '@type': 'Organization',
+                name: 'Freelance',
+              },
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Tashkent',
+                addressCountry: 'UZ',
+              },
+              sameAs: [
+                'https://twitter.com/malfoyintech',
+                'https://github.com/Acadbek',
+                'https://www.linkedin.com/in/asadnosirov/',
+              ],
+              knowsAbout: [
+                'Web Development',
+                'React',
+                'Next.js',
+                'Penetration Testing',
+                'Web Security',
+                'TypeScript',
+              ],
+            }),
+          }}
+        />
       </body>
     </html>
   )
