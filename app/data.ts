@@ -8,7 +8,8 @@ type Project = {
   srcCode: string
   srcCodePrivate?: boolean
   previewImg: string
-  isOnline?: boolean
+  isOnline?: boolean,
+  videoSvgColor?: string,
 }
 
 type WorkExperience = {
@@ -80,9 +81,10 @@ export const ALLPROJECTS: Project[] = [
     name: '100 ~ (WIP)',
     description: ' My 100-day project of exploring design, compform, and new things. ',
     link: 'https://100-idea.vercel.app/air-friction',
-    src: '/100.webp',
+    src: '/100.webm',
     srcCode: 'https://github.com/Acadbek/100',
     previewImg: '/100.webp',
+    videoSvgColor: '#fff',
     isOnline: true,
     id: 'project3sdfswe',
   },
@@ -120,7 +122,8 @@ export const ALLPROJECTS: Project[] = [
     name: 'Parametric 2D drawing',
     description: 'Build with Konvajs',
     link: 'https://parametric-2d-drawing.vercel.app/',
-    src: '/2d.webp',
+    src: '/2d.webm',
+    videoSvgColor: '#000000',
     srcCode: 'https://github.com/acadbek/parametric-2d-drawing',
     previewImg: '/2d.webp',
     id: 'project2',
@@ -131,6 +134,7 @@ export const ALLPROJECTS: Project[] = [
     description: 'Firefox extention',
     link: '#',
     src: '/likes-extention.webm',
+    videoSvgColor: '#FFFFFF',
     srcCode: 'https://github.com/acadbek/likes-extention',
     previewImg: '/likes-extention-preview.webp',
     id: 'project223',
@@ -141,7 +145,8 @@ export const ALLPROJECTS: Project[] = [
     name: 'Ascii donut',
     description: 'Web version of the classic ascii donut in javascript',
     link: 'https://ascii-donut-puce.vercel.app/',
-    src: '/ascii-donut.webp',
+    videoSvgColor: '#FFFFFF',
+    src: '/donut.webm',
     srcCode: 'https://github.com/acadbek/ascii-donut',
     previewImg: '/ascii-donut.webp',
     id: 'project2242324',
@@ -161,7 +166,7 @@ export const ALLPROJECTS: Project[] = [
     name: 'Rish',
     description: 'A blazing fast React + TailwindCSS + React Router Dom + Shadcn UI starter template ready in 10 seconds!',
     link: 'https://www.npmjs.com/package/rish/',
-    src: '/rish.webp',
+    src: '/rish.webm',
     srcCode: 'https://github.com/Acadbek/rish',
     previewImg: '/rish.webp',
     id: 'project2234',
@@ -191,7 +196,8 @@ export const ALLPROJECTS: Project[] = [
     name: 'Game',
     description: 'A fun and interactive game built with js and canvas.',
     link: 'https://gamewithjs.netlify.app/',
-    src: '/game-inviders.webp',
+    videoSvgColor: '#FFFFFF',
+    src: '/game.webm',
     srcCode: 'https://github.com/Acadbek/game-js-and-canvas',
     previewImg: '/game-inviders.webp',
     id: 'project224dsf3',

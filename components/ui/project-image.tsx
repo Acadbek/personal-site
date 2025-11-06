@@ -7,14 +7,14 @@ import {
   MorphingDialogTrigger,
 } from './morphing-dialog'
 import { XIcon } from 'lucide-react'
-import { s } from 'motion/react-client'
 
 type ProjectVideoProps = {
   src: string,
   previewImg: string,
+  videoSvgColor?: string,
 }
 
-export function ProjectImage({ src, previewImg }: ProjectVideoProps) {
+export function ProjectImage({ src, previewImg, videoSvgColor }: ProjectVideoProps) {
   return (
     <>
       {
@@ -34,7 +34,7 @@ export function ProjectImage({ src, previewImg }: ProjectVideoProps) {
           controls
           className="pointer-events-none absolute -z-50 opacity-0"
         >
-          <source src={src} type="video/webp" />
+          <source src={src} type="video/webm" />
         </video>
       }
 
@@ -47,6 +47,7 @@ export function ProjectImage({ src, previewImg }: ProjectVideoProps) {
         }}
       >
         <MorphingDialogTrigger>
+          {src.split('.').pop() === 'webm' && <svg className='absolute top-2 right-2' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 32 32"><path fill={videoSvgColor} d="M21 26H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h17a2 2 0 0 1 2 2v4.06l5.42-3.87A1 1 0 0 1 30 9v14a1 1 0 0 1-1.58.81L23 19.94V24a2 2 0 0 1-2 2M4 8v16h17v-6a1 1 0 0 1 1.58-.81L28 21.06V10.94l-5.42 3.87A1 1 0 0 1 21 14V8Z" /></svg>}
           <Image
             priority={true}
             alt="Project preview image"
@@ -78,7 +79,7 @@ export function ProjectImage({ src, previewImg }: ProjectVideoProps) {
                   controls
                   className="h-[50vh] w-full rounded-xl object-cover md:h-[70vh]"
                 >
-                  <source src='./likes-extention.webm' type="video/webm" />
+                  <source src={src} type="video/webm" />
                 </video>
               </>
             }
