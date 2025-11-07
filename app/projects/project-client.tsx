@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import React from 'react'
 import { ALLPROJECTS } from '../data'
 import { ProjectImage } from '@/components/ui/project-image'
+import { ViewCounter } from '@/components/ui/view-count'
 
 const VARIANTS_SECTION = {
   hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
@@ -42,7 +43,7 @@ export default function Projects() {
           {ALLPROJECTS.map((project) => (
             <div key={project.name} className="space-y-2">
               <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectImage videoSvgColor={project.videoSvgColor} previewImg={project.previewImg} src={project.src} />
+                <ProjectImage id={project.id} videoSvgColor={project.videoSvgColor} previewImg={project.previewImg} src={project.src} />
               </div>
               <div className="px-1">
                 <div className='flex items-center justify-between'>

@@ -3,7 +3,7 @@ import ProjectClient from './project-client'
 
 export const metadata: Metadata = {
   title: 'AN - Projects',
-  description: 'Browse through our collection of innovative projects and development work. Discover creative solutions and technical implementations.',
+  description: 'Browse through our collection of projects and development work. Discover creative solutions and technical implementations.',
   keywords: [
     'Asadbek Nosirjonov projects',
     'React projects showcase',

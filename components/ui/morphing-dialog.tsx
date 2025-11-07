@@ -89,28 +89,32 @@ export type MorphingDialogTriggerProps = {
   className?: string
   style?: React.CSSProperties
   triggerRef?: React.RefObject<HTMLDivElement>
+  onClick?: () => void
 }
 
 function MorphingDialogTrigger({
   children,
   className,
   style,
+  onClick,
   triggerRef,
 }: MorphingDialogTriggerProps) {
   const { setIsOpen, isOpen, uniqueId } = useMorphingDialog()
 
   const handleClick = useCallback(() => {
     setIsOpen(!isOpen)
-  }, [isOpen, setIsOpen])
+    onClick?.()
+  }, [isOpen, setIsOpen, onClick])
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
         setIsOpen(!isOpen)
+        onClick?.()
       }
     },
-    [isOpen, setIsOpen],
+    [isOpen, setIsOpen, onClick],
   )
 
   return (
@@ -190,7 +194,7 @@ function MorphingDialogContent({
         setLastFocusableElement(
           focusableElements[focusableElements.length - 1] as HTMLElement,
         )
-        ;(focusableElements[0] as HTMLElement).focus()
+          ; (focusableElements[0] as HTMLElement).focus()
       }
     } else {
       document.body.classList.remove('overflow-hidden')
