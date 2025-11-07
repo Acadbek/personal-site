@@ -7,6 +7,7 @@ import {
   MorphingDialogTrigger,
 } from './morphing-dialog'
 import { XIcon } from 'lucide-react'
+import { TextLoop } from './text-loop';
 
 type ProjectVideoProps = {
   src: string,
@@ -29,6 +30,9 @@ export function ProjectImage({ src, previewImg, videoSvgColor }: ProjectVideoPro
             sizes="(max-width: 768px) 100vw, 871px"
           />
         ) : <video
+          autoPlay
+          muted
+          loop
           width={871}
           height={502}
           controls
