@@ -78,10 +78,8 @@ export function ProjectImage({ src, previewImg, videoSvgColor }: ProjectVideoPro
                   muted
                   autoPlay
                   loop
-                  width={871}
-                  height={502}
                   controls
-                  className="h-[50vh] w-full rounded-xl object-cover md:h-[70vh]"
+                  className="w-full rounded-xl object-cover md:h-[70vh]"
                 >
                   <source src={src} type="video/webm" />
                 </video>
