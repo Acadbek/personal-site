@@ -18,13 +18,23 @@ type ProjectVideoProps = {
 
 export function ProjectImage({ src, previewImg, videoSvgColor, id }: ProjectVideoProps) {
 
-  const incrementViewCount = () => {
+  const incrementViewCount = async () => {
     console.log('Hiiiiiiiiiii');
 
-    fetch(`/api/views/${id}`, {
-      method: 'POST',
-    })
-      .catch(err => console.error('Failed to increment view count', err));
+    try {
+      const response = await fetch(`/api/views/${id}`, {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to increment');
+      }
+
+      const data = await response.json();
+      console.log('Views incremented:', data);
+    } catch (err) {
+      console.error('Failed to increment view count', err);
+    }
   };
 
   return (
