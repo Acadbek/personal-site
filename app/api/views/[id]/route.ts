@@ -1,18 +1,13 @@
-// app/api/views/[id]/route.ts
-
 import { kv } from '@vercel/kv'
 import { NextRequest, NextResponse } from 'next/server'
 
-// 1. Next.js 15 uchun to'g'ri tip
 type RouteContext = {
   params: Promise<{
     id: string
   }>
 }
 
-// GET so'rovini qabul qilish
 export async function GET(request: NextRequest, context: RouteContext) {
-  // 2. await bilan params ni olamiz
   const { id } = await context.params
 
   if (!id) {
@@ -33,9 +28,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
   }
 }
 
-// POST so'rovini qabul qilish
 export async function POST(request: NextRequest, context: RouteContext) {
-  // 2. await bilan params ni olamiz
   const { id } = await context.params
 
   if (!id) {
