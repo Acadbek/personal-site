@@ -36,7 +36,6 @@ const TRANSITION_SECTION = {
   duration: 0.3,
 }
 
-
 export default function LikesClient({ likes }: { likes: Like[] }) {
   const router = useRouter()
   const pathname = usePathname()
