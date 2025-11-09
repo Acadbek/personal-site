@@ -43,12 +43,34 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
   const searchParams = useSearchParams()
 
   const selectedCategory = searchParams.get('category') || 'all'
-  const searchQuery = searchParams.get('q') || ''
+  const urlSearchQuery = searchParams.get('q') || ''
+
+  const [searchQuery, setSearchQuery] = React.useState(urlSearchQuery)
 
   const categories = useMemo(() => {
     const allCategories = likes.map((like) => like.category)
     return ['all', ...Array.from(new Set(allCategories))]
   }, [likes])
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString())
+
+      if (searchQuery) {
+        params.set('q', searchQuery)
+      } else {
+        params.delete('q')
+      }
+
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [searchQuery, pathname, searchParams, router])
+
+  React.useEffect(() => {
+    setSearchQuery(urlSearchQuery)
+  }, [urlSearchQuery])
 
   const searchedLikes = useMemo(() => {
     if (!searchQuery) {
@@ -97,16 +119,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
   }
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value
-    const params = new URLSearchParams(searchParams.toString())
-
-    if (query) {
-      params.set('q', query)
-    } else {
-      params.delete('q')
-    }
-
-    router.replace(`${pathname}?${params.toString()}`)
+    setSearchQuery(e.target.value)
   }
 
   return (
@@ -212,7 +225,7 @@ function ItemList({ items }: { items: Like[] }) {
       {items.map((item) => (
         <div key={item.id} className="group block px-4 py-4 transition-all">
           <div className="flex items-start justify-between gap-4">
-            <Link href={`/likes/${item.number}`} className="min-w-0 flex-1">
+            <Link href={`/saved/${item.number}`} className="min-w-0 flex-1">
               <h3 className="font-base group relative truncate text-zinc-900 dark:text-zinc-50 mb-1.5 font-medium transition">
                 {item.title}
                 <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-400 group-hover:max-w-full dark:bg-zinc-50"></span>

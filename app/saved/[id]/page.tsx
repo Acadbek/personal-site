@@ -51,7 +51,7 @@ export default async function LikeDetailPage({ params }: Props) {
       <div>
         {/* Back button */}
         <Link
-          href="/likes"
+          href="/saved"
           className="mb-6 inline-flex items-center gap-2 text-xs transition hover:text-zinc-400"
         >
           <span>←</span> Back
