@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
@@ -41,10 +41,11 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const selectedCategory = searchParams.get('category') || 'all'
+  const [selectedCategory, setSelectedCategory] = useState(
+    searchParams.get('category') || 'all'
+  )
   const urlSearchQuery = searchParams.get('q') || ''
-
-  const [searchQuery, setSearchQuery] = React.useState(urlSearchQuery)
+  const [searchQuery, setSearchQuery] = useState(urlSearchQuery)
 
   const categories = useMemo(() => {
     const allCategories = likes.map((like) => like.category)
@@ -61,60 +62,51 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
         params.delete('q')
       }
 
+      if (selectedCategory !== 'all') {
+        params.set('category', selectedCategory)
+      } else {
+        params.delete('category')
+      }
+
       router.replace(`${pathname}?${params.toString()}`, { scroll: false })
     }, 300)
 
     return () => clearTimeout(timer)
-  }, [searchQuery, pathname, searchParams, router])
+  }, [searchQuery, selectedCategory, pathname, searchParams, router])
 
   React.useEffect(() => {
     setSearchQuery(urlSearchQuery)
   }, [urlSearchQuery])
 
   const searchedLikes = useMemo(() => {
-    if (!searchQuery) {
-      return likes
-    }
+    if (!searchQuery) return likes
 
     const lowerQuery = searchQuery.toLowerCase()
-
     return likes.filter(
       (like) =>
         like.title.toLowerCase().includes(lowerQuery) ||
-        (like.description &&
-          like.description.toLowerCase().includes(lowerQuery)) ||
-        like.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)),
+        (like.description && like.description.toLowerCase().includes(lowerQuery)) ||
+        like.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
     )
   }, [likes, searchQuery])
 
   const filteredLikes = useMemo(() => {
-    if (selectedCategory === 'all') {
-      return searchedLikes
-    }
+    if (selectedCategory === 'all') return searchedLikes
     return searchedLikes.filter((like) => like.category === selectedCategory)
   }, [searchedLikes, selectedCategory])
 
   const grouped = useMemo(() => {
-    return filteredLikes.reduce(
-      (acc, like) => {
-        if (!acc[like.category]) {
-          acc[like.category] = []
-        }
-        acc[like.category].push(like)
-        return acc
-      },
-      {} as Record<string, Like[]>,
-    )
+    return filteredLikes.reduce((acc, like) => {
+      if (!acc[like.category]) {
+        acc[like.category] = []
+      }
+      acc[like.category].push(like)
+      return acc
+    }, {} as Record<string, Like[]>)
   }, [filteredLikes])
 
   const handleCategoryClick = (category: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (category === 'all') {
-      params.delete('category')
-    } else {
-      params.set('category', category)
-    }
-    router.push(`${pathname}?${params.toString()}`)
+    setSelectedCategory(category)
   }
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,9 +139,9 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
             <button
               key={category}
               onClick={() => handleCategoryClick(category)}
-              className={`flex-shrink-0 px-4 py-1.5 text-sm font-medium capitalize transition-colors ${selectedCategory === category
+              className={`flex-shrink-0 border px-4 py-1.5 text-sm font-medium capitalize transition-colors ${selectedCategory === category
                 ? 'dark:bg-white dark:text-black bg-zinc-100 text-black hover:opacity-90'
-                : 'dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700 border dark:border-none'
+                : 'dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:border-zinc-700'
                 } `}
             >
               {category}
