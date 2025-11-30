@@ -77,17 +77,6 @@ export const PROJECTS: Project[] = [
 
 export const ALLPROJECTS: Project[] = [
   {
-    name: '100 ~ (WIP)',
-    description: ' My 100-day project of exploring design, compform, and new things. ',
-    link: 'https://100-idea.vercel.app/air-friction',
-    src: '/100.webm',
-    srcCode: 'https://github.com/Acadbek/100',
-    previewImg: '/100.webp',
-    videoSvgColor: '#FFFFFF',
-    isOnline: true,
-    id: 'project3sdfswe',
-  },
-  {
     name: 'Salom UI ~ (WIP)',
     description: 'UI library built with shadcn registry.',
     link: 'https://salom.nosirjonov.uz',
@@ -96,6 +85,28 @@ export const ALLPROJECTS: Project[] = [
     previewImg: '/void.webp',
     isOnline: true,
     id: 'project3',
+  },
+  {
+    name: 'Counter Strike Web ~ (WIP)',
+    description: 'Play classic Counter Strike in your browser.',
+    link: 'https://game-beta-gray-52.vercel.app/',
+    src: '/cs.mp4',
+    srcCode: 'https://github.com/Acadbek/game',
+    previewImg: '/cs.webp',
+    videoSvgColor: '#FFFFFF',
+    isOnline: true,
+    id: 'project3sdfswe-cs-web',
+  },
+  {
+    name: '100 ~ (WIP)',
+    description: ' My 100-day project of exploring design, compform, and new things.',
+    link: 'https://100-idea.vercel.app/air-friction',
+    src: '/100.webm',
+    srcCode: 'https://github.com/Acadbek/100',
+    previewImg: '/100.webp',
+    videoSvgColor: '#FFFFFF',
+    isOnline: true,
+    id: 'project3sdfswe',
   },
   {
     name: 'Mentora AI (WIP)',
