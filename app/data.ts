@@ -152,6 +152,17 @@ export const ALLPROJECTS: Project[] = [
     isOnline: false,
   },
   {
+    name: 'Immersive WebGL Portfolio',
+    description: 'Immersive WebGL experience built with Three.js & PixiJS.',
+    link: 'https://three-pixi.vercel.app/',
+    src: '/three-pixi.png',
+    srcCode: 'https://github.com/Acadbek/three-pixi-sfera-landing',
+    previewImg: '/three-pixi.png',
+    id: 'project22424asdasdasdasdthree-pixi',
+    videoSvgColor: '#FFFFFF',
+    isOnline: true,
+  },
+  {
     name: 'Ascii donut',
     description: 'Web version of the classic ascii donut in javascript',
     link: 'https://ascii-donut-puce.vercel.app/',
