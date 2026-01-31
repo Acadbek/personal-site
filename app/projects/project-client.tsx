@@ -37,7 +37,7 @@ export default function Projects() {
         transition={TRANSITION_SECTION}
       >
         <div className="flex justify-between">
-          <h3 className="mb-5 text-lg font-medium">Some projects</h3>
+          {/* <h3 className="mb-5 text-lg font-medium">Some projects</h3> */}
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {ALLPROJECTS.map((project) => (

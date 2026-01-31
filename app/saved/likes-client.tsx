@@ -134,7 +134,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
           />
         </div>
 
-        <div className="mb-6 flex items-center gap-2 overflow-x-auto pb-2">
+        <div className="mb-6 flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
           {categories.map((category) => (
             <button
               key={category}

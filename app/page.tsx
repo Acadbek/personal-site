@@ -1,8 +1,6 @@
-import { Metadata } from 'next'
-import React from 'react'
 import HomeClient from './home-client'
 
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     template: 'AN - %s',
     default: 'AN - Design Engineer, Web Pentester',

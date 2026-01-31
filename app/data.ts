@@ -35,8 +35,8 @@ export const ALLPROJECTS: ProjectItem[] = [
   {
     id: 'tools',
     title: 'Tools',
-    description: 'Smart Tools for Productive People',
-    deployLink: 'https://t00l.vercel.app/',
+    description: 'Secure - free - fast',
+    deployLink: 'https://tool.nosirjonov.uz',
     githubLink: '',
     previewImg: '/tool.png',
     modalMedia: '/tool.png',
