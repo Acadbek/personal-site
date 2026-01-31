@@ -11,7 +11,7 @@ export function Header() {
         <nav className='flex items-center justify-between'>
           <Link
             href="/"
-            className="font-medium text-black !capitalize dark:text-white"
+            className="font-medium text-lg font-season tracking-wide text-black !capitalize dark:text-white"
           >
             Asadbek Nosirjonov
           </Link>
@@ -28,7 +28,7 @@ export function Header() {
           as="p"
           preset="fade"
           per="char"
-          className="text-zinc-600 dark:text-zinc-500"
+          className="text-zinc-600 dark:text-zinc-500 font-geist"
           delay={0.5}
         >
           Design Engineer & Pentester

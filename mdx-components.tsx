@@ -19,7 +19,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <figure>
           <Image
             priority={true}
-            placeholder="blur"
             src={src}
             alt={alt}
             className="rounded-xl"

@@ -1,16 +1,16 @@
 export interface Like {
   id: number
-  number: number
-  title: string
   url: string
-  description: string
-  pageUrl: string
   src: string
+  tags: string[]
+  title: string
+  number: number
+  pageUrl: string
   imageUrl: string | null
   category: string
-  tags: string[]
-  createdAt: string
   githubUrl: string
+  createdAt: string
+  description: string
 }
 
 export async function getLikes(): Promise<Like[]> {
@@ -45,8 +45,12 @@ export async function getLikeById(id: string): Promise<Like | null> {
     },
   )
 
-  if (!response.ok) {
+  if (response.status === 404) {
     return null
+  }
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch like by id: ${response.statusText}`)
   }
 
   const issue = await response.json()

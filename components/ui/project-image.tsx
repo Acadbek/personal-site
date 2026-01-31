@@ -9,6 +9,20 @@ import {
 } from './morphing-dialog'
 import { XIcon } from 'lucide-react'
 
+function getVideoMimeType(src: string): string {
+  const ext = src.split('.').pop()?.toLowerCase()
+  switch (ext) {
+    case 'mp4':
+      return 'video/mp4'
+    case 'webm':
+      return 'video/webm'
+    case 'ogg':
+      return 'video/ogg'
+    default:
+      return 'video/webm'
+  }
+}
+
 type ProjectImageProps = {
   id: string
   previewImg: string
@@ -106,7 +120,7 @@ export function ProjectImage({ id, previewImg, modalMedia, mediaType, iconColor 
                   onLoadedData={() => setIsVideoReady(true)}
                   className="absolute inset-0 h-full w-full object-cover"
                 >
-                  <source src={modalMedia} type="video/webm" />
+                  <source src={modalMedia} type={getVideoMimeType(modalMedia)} />
                 </video>
               </div>
             )}

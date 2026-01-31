@@ -43,7 +43,7 @@ function MagneticSocialLink({
     <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
       <a
         href={link}
-        className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+        className="group font-season tracking-wide relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
       >
         {children}
         <svg
@@ -79,7 +79,7 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
       >
         <div className="flex-1">
-          <p className="text-zinc-600 dark:text-zinc-400">
+          <p className="text-zinc-600 dark:text-zinc-400 font-season font-normal tracking-wide">
             I believe less is powerful. I don't just write code — I design
             experiences. No unnecessary gradients, no chaos. Just clean layouts,
             sharp components, and strong hierarchy. Give me a rough wireframe or
@@ -94,7 +94,7 @@ export default function Personal() {
         </div>
 
         <div className="mt-10 flex items-center gap-3">
-          <div className="flex items-center justify-start space-x-3">
+          <div className="flex items-center font-season justify-start space-x-3">
             <MagneticSocialLink
               key="Resume"
               link={'/Asadbek-Nosirjonov.CV.pdf'}
@@ -106,7 +106,7 @@ export default function Personal() {
             <span className="mr-1 inline-block h-[7px] w-[7px] animate-pulse rounded-full bg-green-500">
               {' '}
             </span>
-            <span className="font-raleway">Currently on the job market</span>
+            <span className="font-geist">Currently on the job market</span>
           </p>
         </div>
       </motion.section>
@@ -116,7 +116,7 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
       >
         <div className="flex justify-between">
-          <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
+          <h3 className="mb-5 text-lg font-medium font-season">Selected Projects</h3>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
@@ -176,11 +176,11 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Work Experience</h3>
+        <h3 className="mb-5 text-lg font-medium font-season">Work Experience</h3>
         <div className="flex flex-col space-y-2">
           {WORK_EXPERIENCE.map((job) => (
             <a
-              className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
+              className="relative overflow-hidden font-season tracking-wide rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
               href={job.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -214,7 +214,7 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-3 text-lg font-medium">Blog</h3>
+        <h3 className="mb-3 text-lg font-medium font-season">Blog</h3>
         <div className="flex flex-col space-y-0">
           <AnimatedBackground
             enableHover
@@ -250,7 +250,7 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Connect</h3>
+        <h3 className="mb-5 text-lg font-medium font-season">Connect</h3>
         <p className="mb-5 text-zinc-600 dark:text-zinc-400">
           Feel free to contact me at{' '}
           <a className="underline dark:text-zinc-300" href={`mailto:${EMAIL}`}>

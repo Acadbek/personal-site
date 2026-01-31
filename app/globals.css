@@ -64,4 +64,10 @@ html {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  .font-season {
+    font-family: var(--font-season);
+  }
+  .font-geist {
+    font-family: var(--font-geist);
+  }
 }

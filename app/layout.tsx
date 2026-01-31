@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import LocalFont from 'next/font/local'
 import './globals.css'
 import { Header } from './header'
 import { Footer } from './footer'
@@ -19,6 +20,11 @@ const geist = Geist({
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+})
+
+const season = LocalFont({
+  src: '../public/fonts/season.ttf',
+  variable: '--font-season',
 })
 
 export const metadata: Metadata = {
@@ -42,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight !lowercase antialiased dark:bg-zinc-950`}
+        className={`${geist.variable} ${geistMono.variable} ${season.variable} bg-white tracking-tight !lowercase antialiased dark:bg-zinc-950`}
       >
         <ThemeProvider
           enableSystem={true}

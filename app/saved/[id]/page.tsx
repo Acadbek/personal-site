@@ -82,7 +82,7 @@ export default async function LikeDetailPage({ params }: Props) {
             </div>
 
             {/* Title */}
-            <h1 className="mb-4 text-4xl font-bold">{like.title}</h1>
+            <h1 className="mb-4 text-4xl font-bold font-season">{like.title}</h1>
 
             {/* Description */}
             {like.description !== 'N/A' && (
@@ -98,7 +98,7 @@ export default async function LikeDetailPage({ params }: Props) {
 
             {/* Links Section */}
             <div className="mb-6 space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Links</h3>
+              <h3 className="text-lg font-semibold text-gray-900 font-season">Links</h3>
 
               <div className="space-y-3">
                 <Link
@@ -146,7 +146,7 @@ export default async function LikeDetailPage({ params }: Props) {
             {/* Tags */}
             {like.tags.length > 0 && (
               <div className="mb-6">
-                <h3 className="mb-3 text-lg font-semibold text-gray-900">
+                <h3 className="mb-3 text-lg font-semibold text-gray-900 font-season">
                   Tags
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -170,11 +170,17 @@ export default async function LikeDetailPage({ params }: Props) {
               <div className="flex items-center gap-4">
                 <time>
                   Added on{' '}
-                  {new Date(like.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
+                  {(() => {
+                    try {
+                      return new Date(like.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      });
+                    } catch {
+                      return 'Invalid date';
+                    }
+                  })()}
                 </time>
               </div>
 

@@ -57,7 +57,7 @@ export default function Projects() {
                     <span className="font-medium text-zinc-900 dark:text-zinc-50">{project.title}</span>
                   ) : (
                     <a
-                      className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                      className="text-sm font-season tracking-wide group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
                       href={project.deployLink}
                       target="_blank"
                     >
@@ -76,7 +76,7 @@ export default function Projects() {
                     </a>
                   )}
                 </div>
-                <p className="text-base text-zinc-600 dark:text-zinc-400">
+                <p className="text-sm tracking-wide font-season text-zinc-600 dark:text-zinc-400">
                   {project.description}
                 </p>
               </div>

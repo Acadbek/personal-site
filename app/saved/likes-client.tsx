@@ -153,7 +153,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
           Object.entries(grouped).map(([category, items]) => (
             <section key={category} className="mb-12">
               <div className="mb-4 flex items-center gap-3">
-                <h2 className="flex items-center text-xl font-semibold capitalize">
+                <h2 className="flex items-center text-xl font-semibold capitalize font-season">
                   {category}
                 </h2>
                 <span className="rounded-full dark:bg-zinc-800 px-2 py-0.5 font-mono text-xs dark:text-zinc-400 bg-zinc-100">
@@ -169,7 +169,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
         {likes.length === 0 && (
           <div className="py-20 text-center">
             <p className="mb-4 text-6xl">📭</p>
-            <h2 className="mb-2 text-2xl font-bold text-gray-700">
+            <h2 className="mb-2 text-2xl font-bold text-gray-700 font-season">
               No likes yet
             </h2>
             <p className="text-gray-500">
@@ -181,7 +181,7 @@ export default function LikesClient({ likes }: { likes: Like[] }) {
         {likes.length > 0 && filteredLikes.length === 0 && (
           <div className="py-20 text-center">
             <p className="mb-4 text-6xl">📭</p>
-            <h2 className="mb-2 text-2xl font-bold text-gray-700">
+            <h2 className="mb-2 text-2xl font-bold text-gray-700 font-season">
               No items found
             </h2>
 
@@ -230,11 +230,17 @@ function ItemList({ items }: { items: Like[] }) {
 
               <div className="flex items-center gap-4 text-xs text-gray-500">
                 <time className='text-nowrap flex-shrink-0'>
-                  {new Date(item.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
+                  {(() => {
+                    try {
+                      return new Date(item.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                      });
+                    } catch {
+                      return 'Invalid date';
+                    }
+                  })()}
                 </time>
                 {item.tags.length > 0 && (
                   <div className="flex gap-2 overflow-x-auto scrollbar-hide min-w-0">
