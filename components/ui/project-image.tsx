@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useState } from 'react'
 import {
   MorphingDialog,
   MorphingDialogClose,
@@ -18,6 +19,7 @@ type ProjectImageProps = {
 }
 
 export function ProjectImage({ id, previewImg, modalMedia, mediaType, iconColor }: ProjectImageProps) {
+  const [isVideoReady, setIsVideoReady] = useState(false)
 
   const incrementViewCount = async () => {
     try {
@@ -53,8 +55,8 @@ export function ProjectImage({ id, previewImg, modalMedia, mediaType, iconColor 
       <MorphingDialog
         transition={{
           type: 'spring',
-          bounce: 0,
-          duration: 0.3,
+          damping: 30,
+          stiffness: 300,
         }}
       >
         <MorphingDialogTrigger onClick={incrementViewCount}>
@@ -91,15 +93,24 @@ export function ProjectImage({ id, previewImg, modalMedia, mediaType, iconColor 
                 sizes="(max-width: 768px) 100vw, 871px"
               />
             ) : (
-              <video
-                muted
-                autoPlay
-                loop
-                controls
-                className="w-full rounded-xl object-cover md:h-[70vh]"
-              >
-                <source src={modalMedia} type="video/webm" />
-              </video>
+              <div className="relative w-full overflow-hidden rounded-xl bg-zinc-100/60 aspect-[871/502] md:h-[70vh] dark:bg-zinc-900/60">
+                {!isVideoReady && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-zinc-200/40 dark:bg-zinc-800/40">
+                    <span className="h-6 w-6 animate-spin rounded-full border-2 border-zinc-300 border-t-transparent dark:border-zinc-700" />
+                  </div>
+                )}
+                <video
+                  muted
+                  autoPlay
+                  loop
+                  controls
+                  playsInline
+                  onLoadedData={() => setIsVideoReady(true)}
+                  className="absolute inset-0 h-full w-full object-cover"
+                >
+                  <source src={modalMedia} type="video/webm" />
+                </video>
+              </div>
             )}
           </MorphingDialogContent>
           <MorphingDialogClose
