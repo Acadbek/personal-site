@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { useState } from 'react'
 import {
   MorphingDialog,
   MorphingDialogClose,
@@ -29,11 +28,19 @@ type ProjectImageProps = {
   modalMedia: string
   mediaType: 'image' | 'video'
   iconColor: 'light' | 'dark'
+  isOpen?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
-export function ProjectImage({ id, previewImg, modalMedia, mediaType, iconColor }: ProjectImageProps) {
-  const [isVideoReady, setIsVideoReady] = useState(false)
-
+export function ProjectImage({
+  id,
+  previewImg,
+  modalMedia,
+  mediaType,
+  iconColor,
+  isOpen,
+  onOpenChange,
+}: ProjectImageProps) {
   const incrementViewCount = async () => {
     try {
       const response = await fetch(`/api/views/${id}`, {
@@ -66,6 +73,8 @@ export function ProjectImage({ id, previewImg, modalMedia, mediaType, iconColor 
       />
 
       <MorphingDialog
+        open={isOpen}
+        onOpenChange={onOpenChange}
         transition={{
           type: 'spring',
           damping: 30,
@@ -106,18 +115,13 @@ export function ProjectImage({ id, previewImg, modalMedia, mediaType, iconColor 
               />
             ) : (
               <div className="relative w-full overflow-hidden rounded-xl bg-zinc-100/60 aspect-[871/502] md:h-[70vh] dark:bg-zinc-900/60">
-                {!isVideoReady && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-zinc-200/40 dark:bg-zinc-800/40">
-                    <span className="h-6 w-6 animate-spin rounded-full border-2 border-zinc-300 border-t-transparent dark:border-zinc-700" />
-                  </div>
-                )}
                 <video
                   muted
                   autoPlay
                   loop
                   controls
                   playsInline
-                  onLoadedData={() => setIsVideoReady(true)}
+                  poster={previewImg}
                   className="absolute inset-0 h-full w-full object-cover"
                 >
                   <source src={modalMedia} type={getVideoMimeType(modalMedia)} />

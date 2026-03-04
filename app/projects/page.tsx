@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import ProjectClient from './project-client'
 
 export const metadata: Metadata = {
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProjectsPage() {
+function ProjectsPageContent() {
   return <>
     <script
       type="application/ld+json"
@@ -80,4 +81,12 @@ export default function ProjectsPage() {
     />
     <ProjectClient />
   </>
+}
+
+export default function ProjectsPage() {
+  return (
+    <Suspense fallback={<div className="h-40" />}>
+      <ProjectsPageContent />
+    </Suspense>
+  )
 }

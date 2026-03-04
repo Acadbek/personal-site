@@ -44,15 +44,35 @@ function useMorphingDialog() {
 export type MorphingDialogProviderProps = {
   children: React.ReactNode
   transition?: Transition
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 function MorphingDialogProvider({
   children,
   transition,
+  open,
+  onOpenChange,
 }: MorphingDialogProviderProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [uncontrolledIsOpen, setUncontrolledIsOpen] = useState(false)
   const uniqueId = useId()
   const triggerRef = useRef<HTMLDivElement>(null!)
+  const isControlled = open !== undefined
+  const isOpen = isControlled ? open : uncontrolledIsOpen
+
+  const setIsOpen = useCallback<React.Dispatch<React.SetStateAction<boolean>>>(
+    (nextState) => {
+      const nextIsOpen =
+        typeof nextState === 'function' ? nextState(isOpen) : nextState
+      if (nextIsOpen === isOpen) return
+
+      if (!isControlled) {
+        setUncontrolledIsOpen(nextIsOpen)
+      }
+      onOpenChange?.(nextIsOpen)
+    },
+    [isControlled, isOpen, onOpenChange],
+  )
 
   const contextValue = useMemo(
     () => ({
@@ -61,7 +81,7 @@ function MorphingDialogProvider({
       uniqueId,
       triggerRef,
     }),
-    [isOpen, uniqueId],
+    [isOpen, setIsOpen, uniqueId],
   )
 
   return (
@@ -74,11 +94,18 @@ function MorphingDialogProvider({
 export type MorphingDialogProps = {
   children: React.ReactNode
   transition?: Transition
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
-function MorphingDialog({ children, transition }: MorphingDialogProps) {
+function MorphingDialog({
+  children,
+  transition,
+  open,
+  onOpenChange,
+}: MorphingDialogProps) {
   return (
-    <MorphingDialogProvider>
+    <MorphingDialogProvider open={open} onOpenChange={onOpenChange}>
       <MotionConfig transition={transition}>{children}</MotionConfig>
     </MorphingDialogProvider>
   )
@@ -247,7 +274,7 @@ function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
         <>
           <motion.div
             key={`backdrop-${uniqueId}`}
-            className="fixed inset-0 h-full w-full bg-white/40 backdrop-blur-sm dark:bg-black/40"
+            className="fixed inset-0 h-full w-full bg-white/40 dark:bg-black/40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

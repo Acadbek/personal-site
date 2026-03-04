@@ -1,6 +1,7 @@
 'use client'
 import { motion } from 'motion/react'
-import React from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ALLPROJECTS } from '../data'
 import { ProjectImage } from '@/components/ui/project-image'
 import { ViewCounter } from '@/components/ui/view-count'
@@ -25,6 +26,56 @@ const VARIANTS_CONTAINER = {
 }
 
 export default function Projects() {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const projectIds = useMemo(() => new Set(ALLPROJECTS.map((project) => project.id)), [])
+
+  const projectFromQuery = useMemo(() => {
+    const project = searchParams.get('project')
+    if (!project) return null
+    return projectIds.has(project) ? project : null
+  }, [projectIds, searchParams])
+
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(projectFromQuery)
+
+  useEffect(() => {
+    setActiveProjectId(projectFromQuery)
+  }, [projectFromQuery])
+
+  const updateProjectInUrl = useCallback(
+    (projectId: string | null) => {
+      const nextSearchParams = new URLSearchParams(searchParams.toString())
+      if (projectId) {
+        nextSearchParams.set('project', projectId)
+      } else {
+        nextSearchParams.delete('project')
+      }
+
+      const query = nextSearchParams.toString()
+      const nextUrl = query ? `${pathname}?${query}` : pathname
+      router.replace(nextUrl, { scroll: false })
+    },
+    [pathname, router, searchParams],
+  )
+
+  const handleProjectOpenChange = useCallback(
+    (projectId: string, open: boolean) => {
+      if (open) {
+        setActiveProjectId(projectId)
+        updateProjectInUrl(projectId)
+        return
+      }
+
+      if (activeProjectId === projectId) {
+        setActiveProjectId(null)
+        updateProjectInUrl(null)
+      }
+    },
+    [activeProjectId, updateProjectInUrl],
+  )
+
   return (
     <motion.main
       className="space-y-24"
@@ -49,6 +100,10 @@ export default function Projects() {
                   modalMedia={project.modalMedia}
                   mediaType={project.mediaType}
                   iconColor={project.iconColor}
+                  isOpen={activeProjectId === project.id}
+                  onOpenChange={(open) =>
+                    handleProjectOpenChange(project.id, open)
+                  }
                 />
               </div>
               <div className="px-1">

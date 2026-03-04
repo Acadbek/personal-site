@@ -33,6 +33,17 @@ type SocialLink = {
 
 export const ALLPROJECTS: ProjectItem[] = [
   {
+    id: 'nextdoc',
+    title: 'NextDoc.ai',
+    description: 'Write smarter with AI Powered documents',
+    deployLink: 'https://app.nextdoc.ai',
+    githubLink: '',
+    previewImg: '/nextdoc.webp',
+    modalMedia: '/nextdoc.webm',
+    mediaType: 'video',
+    iconColor: 'dark',
+  },
+  {
     id: 'tools',
     title: 'Tools',
     description: 'Secure - free - fast',
