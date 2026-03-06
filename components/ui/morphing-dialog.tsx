@@ -229,7 +229,12 @@ function MorphingDialogContent({
     }
   }, [isOpen, triggerRef])
 
-  useClickOutside(containerRef, () => {
+  useClickOutside(containerRef, (event) => {
+    const target = event.target as Node | null
+    if (target && triggerRef.current?.contains(target)) {
+      return
+    }
+
     if (isOpen) {
       setIsOpen(false)
     }

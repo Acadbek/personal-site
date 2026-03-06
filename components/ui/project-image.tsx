@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useEffect, useMemo, useState } from 'react'
 import {
   MorphingDialog,
   MorphingDialogClose,
@@ -7,6 +8,7 @@ import {
   MorphingDialogTrigger,
 } from './morphing-dialog'
 import { XIcon } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 function getVideoMimeType(src: string): string {
   const ext = src.split('.').pop()?.toLowerCase()
@@ -20,6 +22,35 @@ function getVideoMimeType(src: string): string {
     default:
       return 'video/webm'
   }
+}
+
+type VideoSource = {
+  src: string
+  type: string
+}
+
+function getVideoSources(src: string): VideoSource[] {
+  const normalizedSrc = src.trim()
+  const ext = normalizedSrc.split('.').pop()?.toLowerCase()
+
+  const sources: VideoSource[] = [
+    {
+      src: normalizedSrc,
+      type: getVideoMimeType(normalizedSrc),
+    },
+  ]
+
+  if (ext === 'webm') {
+    const mp4Fallback = normalizedSrc.replace(/\.webm$/i, '.mp4')
+    if (mp4Fallback !== normalizedSrc) {
+      sources.push({
+        src: mp4Fallback,
+        type: 'video/mp4',
+      })
+    }
+  }
+
+  return sources
 }
 
 type ProjectImageProps = {
@@ -41,6 +72,30 @@ export function ProjectImage({
   isOpen,
   onOpenChange,
 }: ProjectImageProps) {
+  const [failedVideoSrc, setFailedVideoSrc] = useState<string | null>(null)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
+  const isVideo = mediaType === 'video'
+  const hasVideoError = failedVideoSrc === modalMedia
+
+  const videoSources = useMemo(() => getVideoSources(modalMedia), [modalMedia])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const mediaQuery = window.matchMedia('(hover: none) and (pointer: coarse)')
+    const updateTouchState = () => setIsTouchDevice(mediaQuery.matches)
+
+    updateTouchState()
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', updateTouchState)
+      return () => mediaQuery.removeEventListener('change', updateTouchState)
+    }
+
+    mediaQuery.addListener(updateTouchState)
+    return () => mediaQuery.removeListener(updateTouchState)
+  }, [])
+
   const incrementViewCount = async () => {
     try {
       const response = await fetch(`/api/views/${id}`, {
@@ -59,6 +114,15 @@ export function ProjectImage({
   };
 
   const iconHex = iconColor === 'light' ? '#FFFFFF' : '#000000';
+  const modalContentClassName = isVideo
+    ? 'relative h-[100dvh] w-screen bg-black p-0 md:h-auto md:w-auto md:rounded-2xl md:bg-zinc-50 md:p-1 md:ring-1 md:ring-zinc-200/50 md:ring-inset md:dark:bg-zinc-950 md:dark:ring-zinc-800/50'
+    : 'relative rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50'
+  const closeButtonClassName = isVideo
+    ? 'fixed top-4 right-4 z-[60] h-fit w-fit rounded-full bg-black/70 p-2 shadow-lg backdrop-blur-sm md:top-6 md:right-6 md:bg-white md:p-1'
+    : 'fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1 shadow-lg'
+  const closeIconClassName = isVideo
+    ? 'h-5 w-5 text-white md:text-zinc-500'
+    : 'h-5 w-5 text-zinc-500'
 
   return (
     <>
@@ -102,7 +166,7 @@ export function ProjectImage({
           </>
         </MorphingDialogTrigger>
         <MorphingDialogContainer>
-          <MorphingDialogContent className="relative rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
+          <MorphingDialogContent className={modalContentClassName}>
             {mediaType === 'image' ? (
               <Image
                 width={871}
@@ -114,23 +178,51 @@ export function ProjectImage({
                 sizes="(max-width: 768px) 100vw, 871px"
               />
             ) : (
-              <div className="relative w-full overflow-hidden rounded-xl bg-zinc-100/60 aspect-[871/502] md:h-[70vh] dark:bg-zinc-900/60">
-                <video
-                  muted
-                  autoPlay
-                  loop
-                  controls
-                  playsInline
-                  poster={previewImg}
-                  className="absolute inset-0 h-full w-full object-cover"
-                >
-                  <source src={modalMedia} type={getVideoMimeType(modalMedia)} />
-                </video>
+              <div className="relative h-full w-full overflow-hidden bg-black md:aspect-[871/502] md:h-[70vh] md:rounded-xl md:bg-zinc-100/60 md:dark:bg-zinc-900/60">
+                {hasVideoError ? (
+                  <>
+                    <Image
+                      width={871}
+                      height={502}
+                      alt="Video preview unavailable"
+                      src={previewImg}
+                      className="absolute inset-0 h-full w-full object-contain md:object-cover"
+                      sizes="(max-width: 768px) 100vw, 871px"
+                    />
+                    <p className="absolute inset-x-2 bottom-2 rounded-md bg-white/80 px-2 py-1 text-center text-xs text-zinc-700 dark:bg-zinc-900/80 dark:text-zinc-200">
+                      Video preview is unavailable on this browser.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setFailedVideoSrc(null)}
+                      className="absolute top-2 right-2 rounded-md bg-white/85 px-2 py-1 text-xs text-zinc-700 dark:bg-zinc-900/85 dark:text-zinc-200"
+                    >
+                      Retry
+                    </button>
+                  </>
+                ) : (
+                  <video
+                    muted
+                    autoPlay={!isTouchDevice}
+                    loop={!isTouchDevice}
+                    controls
+                    playsInline
+                    preload={isTouchDevice ? 'metadata' : 'auto'}
+                    poster={previewImg}
+                    onLoadedData={() => setFailedVideoSrc(null)}
+                    onError={() => setFailedVideoSrc(modalMedia)}
+                    className="absolute inset-0 h-full w-full object-contain md:object-cover"
+                  >
+                    {videoSources.map((source) => (
+                      <source key={`${source.src}-${source.type}`} src={source.src} type={source.type} />
+                    ))}
+                  </video>
+                )}
               </div>
             )}
           </MorphingDialogContent>
           <MorphingDialogClose
-            className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1 shadow-lg"
+            className={closeButtonClassName}
             variants={{
               initial: { opacity: 0 },
               animate: {
@@ -140,7 +232,7 @@ export function ProjectImage({
               exit: { opacity: 0, transition: { duration: 0 } },
             }}
           >
-            <XIcon className="h-5 w-5 text-zinc-500" />
+            <XIcon className={cn(closeIconClassName)} />
           </MorphingDialogClose>
         </MorphingDialogContainer>
       </MorphingDialog>
