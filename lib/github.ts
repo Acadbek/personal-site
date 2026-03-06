@@ -14,47 +14,105 @@ export interface Like {
 }
 
 export async function getLikes(): Promise<Like[]> {
-  const response = await fetch(
-    `https://api.github.com/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/issues?state=open&per_page=100`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        Accept: 'application/vnd.github.v3+json',
-      },
-      next: { revalidate: 30 },
-    },
-  )
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch likes from GitHub')
+  const repoConfig = getRepoConfig()
+  if (!repoConfig) {
+    return []
   }
 
-  const issues = await response.json()
-  return issues.map((issue: any) => parseIssue(issue))
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${repoConfig.owner}/${repoConfig.repo}/issues?state=open&per_page=100`,
+      {
+        headers: getGitHubHeaders(),
+        next: { revalidate: 30 },
+      },
+    )
+
+    if (!response.ok) {
+      console.warn(
+        `[github] Failed to fetch likes: ${response.status} ${response.statusText}`,
+      )
+      return []
+    }
+
+    const issues = await response.json()
+    if (!Array.isArray(issues)) {
+      return []
+    }
+
+    return issues.map((issue: any) => parseIssue(issue))
+  } catch (error) {
+    console.error('[github] Failed to fetch likes from GitHub', error)
+    return []
+  }
 }
 
 export async function getLikeById(id: string): Promise<Like | null> {
-  const response = await fetch(
-    `https://api.github.com/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/issues/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        Accept: 'application/vnd.github.v3+json',
-      },
-      next: { revalidate: 30 },
-    },
-  )
-
-  if (response.status === 404) {
+  const repoConfig = getRepoConfig()
+  if (!repoConfig) {
     return null
   }
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch like by id: ${response.statusText}`)
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${repoConfig.owner}/${repoConfig.repo}/issues/${id}`,
+      {
+        headers: getGitHubHeaders(),
+        next: { revalidate: 30 },
+      },
+    )
+
+    if (response.status === 404) {
+      return null
+    }
+
+    if (!response.ok) {
+      console.warn(
+        `[github] Failed to fetch like ${id}: ${response.status} ${response.statusText}`,
+      )
+      return null
+    }
+
+    const issue = await response.json()
+    return parseIssue(issue)
+  } catch (error) {
+    console.error(`[github] Failed to fetch like ${id}`, error)
+    return null
+  }
+}
+
+function getRepoConfig():
+  | {
+      owner: string
+      repo: string
+    }
+  | null {
+  const owner = process.env.GITHUB_OWNER?.trim()
+  const repo = process.env.GITHUB_REPO?.trim()
+
+  if (!owner || !repo) {
+    console.warn(
+      '[github] GITHUB_OWNER or GITHUB_REPO is missing; returning empty likes data',
+    )
+    return null
   }
 
-  const issue = await response.json()
-  return parseIssue(issue)
+  return { owner, repo }
+}
+
+function getGitHubHeaders(): HeadersInit {
+  const token = process.env.GITHUB_TOKEN?.trim()
+
+  if (!token) {
+    return {
+      Accept: 'application/vnd.github.v3+json',
+    }
+  }
+
+  return {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/vnd.github.v3+json',
+  }
 }
 
 function parseIssue(issue: any): Like {

@@ -32,10 +32,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const likes = await getLikes()
-  return likes.map((like) => ({
-    id: like.number.toString(),
-  }))
+  try {
+    const likes = await getLikes()
+    return likes.map((like) => ({
+      id: like.number.toString(),
+    }))
+  } catch (error) {
+    console.error(
+      '[saved/[id]] Failed to generate static params from GitHub likes',
+      error,
+    )
+    return []
+  }
 }
 
 export default async function LikeDetailPage({ params }: Props) {
@@ -66,6 +74,7 @@ export default async function LikeDetailPage({ params }: Props) {
                 src={like.imageUrl}
                 alt={like.title}
                 fill
+                sizes="(max-width: 768px) 100vw, 1200px"
                 className="object-cover"
                 priority
               />
