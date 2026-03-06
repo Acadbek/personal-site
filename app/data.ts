@@ -32,6 +32,17 @@ type SocialLink = {
 }
 
 export const ALLPROJECTS: ProjectItem[] = [
+   {
+    id: 'mobilecn',
+    title: 'mobilecn (WIP)',
+    description: 'AI-Native mobile design system (saas)',
+    deployLink: 'https://mobilecn.app',
+    githubLink: '',
+    previewImg: '/mobilecn.webp',
+    modalMedia: '/mobilecn.webm',
+    mediaType: 'video',
+    iconColor: 'dark',
+  },
   {
     id: 'nextdoc',
     title: 'NextDoc.ai',
